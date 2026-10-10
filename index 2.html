@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>برای ریحانه ❤️</title>
+<style>
+  :root { --red:#ff234f; --pink:#ff6b91; --bg:#090909; --card:#151114; --muted:#d8cbd0; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; color:#fff; background:
+      radial-gradient(circle at 20% 10%, rgba(255,35,79,.16), transparent 32%),
+      radial-gradient(circle at 85% 85%, rgba(160,0,35,.16), transparent 35%), var(--bg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; overflow-x:hidden;
+  }
+  .screen { display:none; width:min(92vw,680px); padding:28px 0; position:relative; z-index:2; }
+  .screen.active { display:block; animation:fadeIn .65s ease both; }
+  .card {
+    background:linear-gradient(145deg,rgba(28,20,24,.97),rgba(12,12,12,.97));
+    border:1px solid rgba(255,75,112,.3); border-radius:26px; padding:28px 22px;
+    box-shadow:0 20px 70px rgba(0,0,0,.48),0 0 35px rgba(255,35,79,.08);
+    text-align:center;
+  }
+  .eyebrow { color:var(--pink); letter-spacing:.5px; font-size:.9rem; margin:0 0 12px; }
+  h1 { font-size:clamp(1.65rem,6vw,2.45rem); line-height:1.6; margin:0 0 12px; }
+  h2 { font-size:clamp(1.25rem,4.8vw,1.75rem); line-height:1.8; margin:0 0 18px; }
+  p { line-height:2.1; color:var(--muted); }
+  .btn, .option {
+    border:0; cursor:pointer; font:inherit; font-weight:700; border-radius:16px;
+    transition:transform .18s ease,filter .18s ease; -webkit-tap-highlight-color:transparent;
+  }
+  .btn { background:linear-gradient(110deg,#ff1748,#b90035); color:#fff; padding:14px 22px; margin-top:14px; box-shadow:0 8px 25px #ff17482b; }
+  .btn:active,.option:active { transform:scale(.98); }
+  .options { display:grid; gap:11px; margin-top:20px; }
+  .option { width:100%; text-align:right; padding:14px 16px; background:#21171c; color:#fff; border:1px solid #50303b; line-height:1.7; }
+  .option:hover { filter:brightness(1.2); border-color:var(--pink); }
+  .progress { height:5px; background:#2b2024; border-radius:20px; overflow:hidden; margin:0 0 22px; }
+  .progress span { display:block; height:100%; background:linear-gradient(90deg,var(--red),var(--pink)); transition:width .3s; }
+  .small { font-size:.88rem; color:#b7a7ad; }
+  .big-heart { font-size:3.4rem; display:block; margin:4px 0 10px; animation:pulse 1.5s infinite; }
+  .letter { text-align:right; white-space:normal; line-height:2.15; color:#f6eaf0; }
+  .letter strong { color:#ff8aa8; }
+  .signature { text-align:left; color:#ff8aa8; font-weight:800; margin-top:22px; }
+  .floating-heart { position:fixed; bottom:-50px; z-index:1; pointer-events:none; animation:floatUp linear forwards; opacity:.8; }
+  .glow { color:#ff6b91; text-shadow:0 0 22px #ff17485c; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+  @keyframes floatUp { to { transform:translateY(-115vh) rotate(25deg); opacity:0; } }
+  @media (max-width:420px) { .card{padding:24px 17px;border-radius:22px} .screen{width:92vw} }
+</style>
+</head>
+<body>
+<section class="screen active" id="intro">
+  <div class="card">
+    <span class="big-heart">❤️‍🔥</span>
+    <p class="eyebrow">یه چیز کوچولو برای تو...</p>
+    <h1>ریحانه خانوم، آماده‌ای؟ 🫶🏻</h1>
+    <p>چندتا سؤال کوچولو جواب بده؛ آخرش یه سورپرایز منتظرته. فقط تا آخرش بیا! 👀❤️</p>
+    <button class="btn" id="start">بزن بریم ❤️</button>
+  </div>
+</section>
+
+<section class="screen" id="quiz">
+  <div class="card">
+    <div class="progress"><span id="bar" style="width:0%"></span></div>
+    <p class="eyebrow" id="count">سؤال ۱ از ۱۰</p>
+    <h2 id="question"></h2>
+    <div class="options" id="options"></div>
+    <p class="small" id="feedback" aria-live="polite"></p>
+    <button class="btn" id="next" style="display:none">سؤال بعدی ←</button>
+  </div>
+</section>
+
+<section class="screen" id="teaser">
+  <div class="card">
+    <span class="big-heart">💌</span>
+    <p class="eyebrow">این هنوز آخرش نیست...</p>
+    <h1 class="glow">ریحانه، یه چیزی هست که باید بدونی… ❤️</h1>
+    <p>یه پیام از طرف کسی که با تمام دلش تو رو انتخاب کرده.</p>
+    <button class="btn" id="reveal">سورپرایزم رو ببینم 🫀</button>
+  </div>
+</section>
+
+<section class="screen" id="final">
+  <div class="card">
+    <span class="big-heart">❤️‍🔥</span>
+    <h1>برای ریحانه، از ته دلِ مهدی</h1>
+    <div class="letter">
+      <p>❤️‍🔥 <strong>روزت مبارک، زیباترین دختر دنیا؛ ریحانه‌ی خودم</strong> ❤️‍🔥</p>
+
+      <p>نمی‌دونم از کجا شروع کنم، آخه وقتی حرف از تو می‌شه، نمی‌دونم چطوری اون چیزی که توی دلمه رو به زبون بیارم. فقط می‌دونم که دوستت دارم، خیلی بیشتر از چیزی که فکرشو بکنی؛ بیشتر از چیزی که تا حالا بهت گفتم و حتی بیشتر از چیزی که بتونم با کلمه‌ها توضیحش بدم.</p>
+
+      <p><strong>ریحانه، تو قشنگ‌ترین اتفاق زندگی منی. 🫀</strong></p>
+
+      <p>هنوزم نمی‌دونم چطور شد که تو وارد زندگیم شدی، ولی می‌دونم از وقتی اومدی، یه چیزایی برام فرق کرده. با حرف زدنت، با خنده‌هات، با شیطنت‌هات و حتی با همون کارای کوچیکی که شاید خودت اصلاً بهشون توجه نکنی، می‌تونی حال دلمو عوض کنی.</p>
+
+      <p>خوشگل خودم، حال دلم با تو خوبه…<br>یه خوب بودنی که شاید نتونم درست توضیحش بدم، ولی خودم خوب می‌فهممش. همین که بدونم هستی، همین که می‌تونم باهات حرف بزنم و از روزم برات بگم، برام قشنگه. تو برای من فقط یه دختر دوست‌داشتنی نیستی؛ تو همون آدمی هستی که دلم می‌خواد کلی خاطره‌ی قشنگ باهاش بسازم. ❤️</p>
+
+      <p>یه چیزی رو هم از ته دلم می‌خوام بدونی؛ اگه یه روز ناراحت باشی، اگه ببینم غمی توی دلت هست یا لبخندت مثل همیشه نیست، انگار خنجری به قلب خودم زدن. چون وقتی دوستت دارم، خوشحالیت برام مهمه. شاید نتونم همه‌ی ناراحتی‌هات رو از بین ببرم، ولی دلم می‌خواد توی روزای سختت کنارت باشم و بدونی که لازم نیست همیشه وانمود کنی حالت خوبه.</p>
+
+      <p>من دوست دارم بخندی، خوشحال باشی، به آرزوهات برسی و از زندگی لذت ببری. دوست دارم وقتی به من فکر می‌کنی، یه لبخند بیاد روی لبت؛ همون‌طور که خیلی وقتا فکر کردن به تو حال منو خوب می‌کنه.</p>
+
+      <p>می‌دونی، می‌گن عشق شیرین و فرهاد افسانه شد، عشق لیلی و مجنون قصه شد؛ ولی من نمی‌خوام عشق ما فقط یه قصه‌ی قشنگ باشه. دلم می‌خواد با هم زندگی کنیم، خاطره بسازیم، بخندیم، گاهی هم از هم دلخور بشیم و آخرش یاد بگیریم چطوری بیشتر هوای همدیگه رو داشته باشیم.</p>
+
+      <p>یه بیت از حافظ هست که خیلی قشنگه:</p>
+      <p class="glow"><strong>«در ازل پرتو حسنت ز تجلی دم زد<br>عشق پیدا شد و آتش به همه عالم زد»</strong></p>
+
+      <p>و من اگه بخوام از عشق خودم بهت بگم، شاید فقط بتونم اینو بگم که بین این‌همه آدم توی دنیا، دل من با تو یه جور دیگه‌ست.</p>
+
+      <p><strong>اگه هزار بار دیگه هم حق انتخاب داشته باشم، هزار بار دیگه تو رو انتخاب می‌کنم؛ با همون خنده‌هات، همون شیطنت‌هات، همون اخلاق خودت و با تمام چیزایی که تو رو تبدیل به ریحانه‌ی من کرده. ❤️‍🔥</strong></p>
+
+      <p>خوشگل خودم، شاید نتونم همیشه بهترین جمله‌های دنیا رو بهت بگم، شاید بعضی وقتا بلد نباشم اون‌جوری که باید احساسم رو نشون بدم، ولی اینو بدون که دوست داشتنت برای من یه حرف ساده نیست.</p>
+
+      <p>دلم می‌خواد یه روزی به این روزا نگاه کنیم و بگیم: «یادته از کجا شروع کردیم؟ ببین چقدر خاطره با هم ساختیم!»</p>
+
+      <p>و اگه بخوام همه‌ی حرفامو توی یه جمله خلاصه کنم، می‌گم:</p>
+      <p><strong class="glow">«از بین تمام اتفاقایی که می‌تونست توی زندگی من بیفته، تو قشنگ‌ترینشون بودی.» 🫀</strong></p>
+
+      <p>روز دختر مبارک، خوشگل‌ترین دختر دنیای من! ❤️</p>
+
+      <p>امیدوارم همیشه بخندی، دلت خوش باشه و به هر چیزی که آرزوشو داری برسی. امیدوارم هر وقت به این پیام نگاه کردی، یادت بیاد که یه نفر هست که از ته دل خوشحالیت رو می‌خواد.</p>
+
+      <p><strong>ریحانه، دوستت دارم؛ بیشتر از چیزی که بتونم بنویسم و بیشتر از چیزی که این چند خط بتونه نشون بده.</strong></p>
+
+      <p>تو قشنگ‌ترین اتفاق زندگی منی، حال دلم با تو خوبه و اگه دوباره به دنیا بیام، دلم می‌خواد باز هم یه جایی از این دنیا پیدات کنم.</p>
+
+      <div class="signature">با تمام عشق دنیا،<br>مهدی؛ همونی که دلش تو رو انتخاب کرده. ❤️‍🔥</div>
+    </div>
+  </div>
+</section>
+
+<script>
+const questions = [
+ {q:"کی بیشتر از همه دوستت داره؟ 😏", a:["مهدی خودم ❤️","خودم 😂","سؤال سختیه!"]},
+ {q:"اگه مهدی همین الان جلوت بود، اولین کارت چی بود؟ 🫶🏻", a:["محکم بغلش می‌کردم ❤️","می‌گفتم باز چه نقشه‌ای داری؟ 😂","اول کلی باهاش حرف می‌زدم 💌"]},
+ {q:"اگه دوباره حق انتخاب داشتی، مهدی رو انتخاب می‌کردی؟ ❤️", a:["هزار بارم که باشه، بازم مهدی 🥹","بذار یه کم فکر کنم 😏","معلومه که آره! ❤️‍🔥"]},
+ {q:"به نظرت کدوم‌مون زودتر دلتنگ اون یکی می‌شه؟ 🥺", a:["مهدی 😂","ریحانه 🫣","هردومون، ولی به زبون نمیاریم ❤️"]},
+ {q:"اگه مهدی یه روز ناراحت باشه، چی کار می‌کنی؟ 🫂", a:["کنارش می‌مونم ❤️","سعی می‌کنم بخندونمش 😂","باهم حرف می‌زنیم تا حالش بهتر بشه 💗"]},
+ {q:"کدوم قرار دونفره رو بیشتر دوست داری؟ 🌙", a:["یه شب دونفره و کلی حرف 💌","بیرون‌گردی و شیطنت 😂","هرجا که مهدی باشه ❤️"]},
+ {q:"اگه مهدی بهت بگه «یه آرزو دارم که تو توشی»، چی می‌گی؟ 🥹", a:["پس امیدوارم به آرزوت برسی ❤️","منم یه آرزو دارم که تویی 🫶🏻","بیا ببینم باز چی تو سرته 😂"]},
+ {q:"کدوم ویژگی مهدی رو بیشتر دوست داری؟ 😈", a:["اخلاق و رفتارش ❤️","شیطنت‌هاش 😂","همه‌چیش، با تمام خوبی‌ها و بدی‌هاش 🫶🏻"]},
+ {q:"اگه قرار باشه یه خاطره رو برای همیشه نگه داری، کدوم رو انتخاب می‌کنی؟ 💌", a:["اولین خاطره قشنگمون ❤️","خنده‌هایی که باهم داشتیم 🥹","تمام لحظه‌هایی که کنار هم بودیم 🫂"]},
+ {q:"ریحانه خانوم، آماده‌ای سورپرایز واقعی‌تو ببینی؟ 👀❤️", a:["آرههه، زود باش! 😭❤️","بزن بازش کن مهدی! 🫶🏻","وای، کنجکاوم کردی! 😭💗"]}
+];
+let index = 0;
+let answered = false;
+const $ = id => document.getElementById(id);
+function show(id) {
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ $(id).classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function hearts(amount=12) {
+ const symbols=["❤️","🫀","💕","💗","❤️‍🔥"];
+ for(let i=0;i<amount;i++){
+  const el=document.createElement('span');
+  el.className='floating-heart';
+  el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+  el.style.left=Math.random()*100+'vw';
+  el.style.fontSize=(16+Math.random()*22)+'px';
+  el.style.animationDuration=(4+Math.random()*5)+'s';
+  el.style.animationDelay=(Math.random()*2)+'s';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),11000);
+ }
+}
+function renderQuestion() {
+ answered=false;
+ $('feedback').textContent='';
+ $('next').style.display='none';
+ $('count').textContent=`سؤال ${index+1} از ${questions.length}`;
+ $('bar').style.width=((index)/questions.length*100)+'%';
+ $('question').textContent=questions[index].q;
+ $('options').innerHTML='';
+ questions[index].a.forEach(answer=>{
+  const b=document.createElement('button');
+  b.className='option'; b.textContent=answer;
+  b.onclick=()=>{
+   if(answered) return;
+   answered=true;
+   document.querySelectorAll('.option').forEach(x=>x.disabled=true);
+   $('feedback').textContent='جوابت ثبت شد، ریحانه خانوم ❤️';
+   $('next').style.display='inline-block';
+   $('next').textContent=index===questions.length-1?'رفتن به سورپرایز ❤️':'سؤال بعدی ←';
+  };
+  $('options').appendChild(b);
+ });
+}
+$('start').onclick=()=>{show('quiz');renderQuestion();hearts(8);};
+$('next').onclick=()=>{
+ if(index===questions.length-1){show('teaser');hearts(18);}
+ else {index++;renderQuestion();}
+};
+$('reveal').onclick=()=>{show('final');hearts(50);};
+</script>
+</body>
+</html>
